@@ -1,6 +1,6 @@
 NIC Teaming, ou agrupamento de NICs (Network Interface Cards), é uma técnica que permite combinar várias interfaces de rede físicas em uma única interface lógica. Isso pode ser usado para aumentar a largura de banda disponível, fornecer redundância e melhorar a resiliência da rede.
 
-Aqui estão os principais benefícios e conceitos do NIC Teaming:
+Aqui estão os principais benefícios e conceitos do NIC Teaming:<br>
 
 1. Aumento de Largura de Banda:
 Ao combinar múltiplas interfaces de rede, o NIC Teaming pode agregar a largura de banda dessas interfaces. Por exemplo, se você tem duas NICs de 1 Gbps cada, o teaming pode permitir uma largura de banda agregada de até 2 Gbps, dependendo da configuração e da carga de trabalho.
