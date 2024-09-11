@@ -31,5 +31,47 @@ Configuração da rede (cenário)
 cd /etc/network (cd *acessar diretório*)
 cp interfaces interfaces.old (cp *copiar* interfaces *arquivo* interfaces.old *nome do novo arquivo
 vim interfaces (editar arquivo *interfaces)
-cat interfaces (lista conteudo do arquivo *interfaces)
+
+# LAN
+allow-hotplug enp0s8
+iface en0s8 inet static
+address 192.168.0.1/24
+
+cat interfaces (lista conteudo do arquivo vim sem entrar nele *interfaces)
 systemctl restart networking (*reiniciar serviço de rede*)
+
+----------------------------
+
+Configuração do serviço de DHCP (Servidor de IPs)
+
+apt update
+apt install isc-dhcp-server (*instalar servidor dhcp)
+systemctl status isc-dhcp-server (*verificar status)
+ip link show (*verificar as interfaces de rede)
+
+1º configurar a interface LAN para o DHCP
+cd /etc/default
+# fazer uma cópia do arquivo de configuração
+cp isc-dhcp-server isc-dhcp-server.old (*old significa o nome da cópia)
+
+vim isc-dhcp-server
+INTERFACES="enp0s8" (*verificar antes a interface)
+INETERFACESv4="enp0s8" (editar arquivo e colocar essa interface)
+
+cd etc/dhcp
+
+cp dhcpd.conf dhcpd.conf.old (*fazer uma copia e criar um backup)
+
+vim dhcpd.conf
+#linha 7 - mudar o nome do dominio / alterar para "localhost"
+#linha 8 - colocar ip do gateway do servidor / alterar para 192.168.0.1
+#linha 35 - subnet / colocar o ip da rede 192.168.0.0 e a mascara 255.255.255.0
+#linha 36 - range / colocar a quantidade de ips para o dhcp fornecer 192.168.0.100 até 192.168.0.200
+#linha 37 - colocar o gateway do servidor 192.168.0.1
+
+reiniciar o sistema - systemctl restart isc-dhcp-server.service
+verificar o status do sistema - systemctl status isc-dhcp-server.service
+
+
+
+
